@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +30,7 @@ public class ChatMgr : MonoBehaviour
             public string DialogueType;
             public string Name;
             public string Conversation;
+            public int NextIndex;
             public List<string> ChoiceTextList = new List<string>();
             public List<int> ChoiceIndexList = new List<int>();
         }
@@ -48,7 +51,7 @@ public class ChatMgr : MonoBehaviour
 
     void Awake()
     {
-        _chatPanel = GameObject.Find("_ChatPanel");
+        _chatPanel = GameObject.Find("ChatPanel");
         _choosePanel = _chatPanel.transform.GetChild(1).gameObject;
         _chatName = _chatPanel.transform.GetChild(0).GetChild(2).GetComponent<Text>();
         _chatText = _chatPanel.transform.GetChild(0).GetChild(1).GetComponent<Text>();
@@ -61,17 +64,25 @@ public class ChatMgr : MonoBehaviour
             _chatText.font = _defaultFont;
         }
 
-        _chatImage.sprite = _chatBackgroundSprite;
-        _chatChooseButtonPrefab.GetComponent<SpriteRenderer>().sprite = _chatChooseButtonSprite;
+        if (_chatBackgroundSprite != null)
+        {
+            _chatImage.sprite = _chatBackgroundSprite;
+        }
+
+        if (_chatChooseButtonSprite != null)
+        {
+            _chatChooseButtonPrefab.GetComponent<SpriteRenderer>().sprite = _chatChooseButtonSprite;
+        }
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (_isbeginChat)
         {
-            if (Input.GetAxis(_submitButton) != 0)
+            if (Input.GetAxisRaw(_submitButton) != 0)
             {
+                Debug.Log(1);
                 UpdateChat();
             }
         }
@@ -95,7 +106,7 @@ public class ChatMgr : MonoBehaviour
         _isbeginChat = true;
         _currentIndex = 0;
         _chatPanel.SetActive(true);
-        _chatText.name = _currentDialogueList.Dialogues[_currentIndex].Name;
+        _chatName.text = _currentDialogueList.Dialogues[_currentIndex].Name;
         _chatText.text = _currentDialogueList.Dialogues[_currentIndex].Conversation;
     }
 
@@ -110,15 +121,18 @@ public class ChatMgr : MonoBehaviour
             return;
         }
 
+        GameObject eventSystem = GameObject.Find("EventSystem");
         DialogueList.Dialogue dialogue = _currentDialogueList.Dialogues[_currentIndex];
 
         if (dialogue.DialogueType.CompareTo("Chat") == 0)
         {
             _chatName.text = dialogue.Name;
             _chatText.text = dialogue.Conversation;
+            eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
         }
         else
         {
+            _isbeginChat = false;
             int len1 = dialogue.ChoiceTextList.Count;
             int len2 = dialogue.ChoiceIndexList.Count;
 
@@ -128,14 +142,32 @@ public class ChatMgr : MonoBehaviour
                 return;
             }
 
-            _choosePanel.transform.DetachChildren();
 
             int minLen = Mathf.Min(len1, len2);
             for (int i = 0; i < minLen; i++)
             {
-                Button _newButton = Object.Instantiate(_chatChooseButtonPrefab, _choosePanel.transform) as Button;
-                _newButton.transform.GetChild(0).GetComponent<Text>().text = dialogue.ChoiceTextList[i];
+                Button newButton = Object.Instantiate(_chatChooseButtonPrefab, _choosePanel.transform) as Button;
+                newButton.transform.GetChild(0).GetComponent<Text>().text = dialogue.ChoiceTextList[i];
+                newButton.gameObject.SetActive(true);
+                int currentTarget = dialogue.ChoiceIndexList[i] - 1;
+                newButton.onClick.AddListener(() => JumpConversation(currentTarget));
             }
+
+            GameObject firstButton = _choosePanel.transform.GetChild(0).gameObject;
+            eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(firstButton);
         }
+    }
+
+    void JumpConversation(int x)
+    {
+        _currentIndex = x;
+
+        for (int i = _choosePanel.transform.childCount - 1; i > -1; i--)
+        {
+            GameObject currentButton = _choosePanel.transform.GetChild(i).gameObject;
+            GameObject.Destroy(currentButton);
+        }
+
+        _isbeginChat = true;
     }
 }
