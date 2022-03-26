@@ -1,1 +1,49 @@
-{"Dialogues":[{"DialogueType":"Chat","Name":"asd","Conversation":"你好，你是犯人吗？","ChoiceTextList":[],"ChoiceIndexList":[]},{"DialogueType":"Choose","Name":"","Conversation":"","ChoiceTextList":["不是我","是我"],"ChoiceIndexList":[2,3]},{"DialogueType":"Chat","Name":"asd","Conversation":"好，那我去找别人了","ChoiceTextList":[],"ChoiceIndexList":[]},{"DialogueType":"Chat","Name":"asd","Conversation":"那乖乖站好，别跑了","ChoiceTextList":[],"ChoiceIndexList":[]}]}
+{
+    "Dialogues": [
+        {
+            "DialogueType": "Chat",
+            "Name": "asd",
+            "Conversation": "你好，我是警察",
+            "NextIndex": 1,
+            "ChoiceTextList": [],
+            "ChoiceIndexList": []
+        },
+        {
+            "DialogueType": "Chat",
+            "Name": "asd",
+            "Conversation": "请问，你是犯人吗？",
+            "NextIndex": 2,
+            "ChoiceTextList": [],
+            "ChoiceIndexList": []
+        },
+        {
+            "DialogueType": "Choose",
+            "Name": "",
+            "Conversation": "",
+            "ChoiceTextList": [
+                "不是我",
+                "是我"
+            ],
+            "ChoiceIndexList": [
+                3,
+                4
+            ]
+        },
+        {
+            "DialogueType": "Chat",
+            "Name": "asd",
+            "Conversation": "好，那我去找别人了",
+            "NextIndex": -1,
+            "ChoiceTextList": [],
+            "ChoiceIndexList": []
+        },
+        {
+            "DialogueType": "Chat",
+            "Name": "asd",
+            "Conversation": "那乖乖站好，别跑了",
+            "NextIndex": -1,
+            "ChoiceTextList": [],
+            "ChoiceIndexList": []
+        }
+    ]
+}
