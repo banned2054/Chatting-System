@@ -4,23 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "new Dialogue",menuName = "Data/new Dialogue")]
+[CreateAssetMenu(fileName = "new Dialogue", menuName = "Data/new Dialogue")]
 public class DialogueSO : ScriptableObject
 {
-    [Header("显示效果")]
-    [Tooltip("false:直接显示\ntrue:滚动显示")]
+    [Header("显示效果")] [Tooltip("false:直接显示\ntrue:滚动显示")]
     public bool IsJump;
 
     [Tooltip("滚动显示的速度")] public float JumpTime = 0;
 
-    [Header("自动播放设置")]
-    [Tooltip("开启自动播放，遇到选项会暂停")]
+    [Header("自动播放设置")] [Tooltip("开启自动播放，遇到选项会暂停")]
     public bool IsAuto = false;
 
     [Tooltip("自动播放时，每个句子之间的停顿时间")] public float AutoWaitTime;
 
-    [Header("音频设置")]
-    [Tooltip("开启自动播放，遇到选项会暂停")]
+    [Header("音频设置")] [Tooltip("开启自动播放，遇到选项会暂停")]
     public bool IsPlayBackroundAudio;
 
     [Tooltip("背景音乐")] public AudioClip BackgroundAudioClip;
