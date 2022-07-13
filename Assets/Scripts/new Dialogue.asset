@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447c6c9a56ff5904184d206faf4604b8, type: 3}
+  m_Name: new Dialogue
+  m_EditorClassIdentifier: 
+  DialogueList:
+  - IsElect: 0
+    CharacterName: "\u9A74"
+    Message: "\u5200\u5BA2\u5854......\u4F60\u5DF2\u7ECF\u5904\u7406\u592A\u591A\u4E8B\u60C5\u4E86\uFF0C\u8BF7\u4F11\u606F\u4E00\u4E0B\u5427"
+    ElectItems: []
+  - IsElect: 0
+    CharacterName: "\u535A"
+    Message: "\u5371\u673A\u5408\u7EA618\u7EA7\u4F5C\u4E1A......"
+    ElectItems: []
+  - IsElect: 0
+    CharacterName: "\u9A74"
+    Message: "\u5200\u5BA2\u5854\uFF1F"
+    ElectItems: []
+  JumpTime: 0.1
